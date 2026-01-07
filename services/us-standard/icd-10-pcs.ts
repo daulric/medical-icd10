@@ -116,3 +116,7 @@ async function main() {
 }
 
 export default main;
+
+if (import.meta.main) {
+  await main();
+}

@@ -83,3 +83,7 @@ export default async function defaultMain() {
     console.log(`- Saved ${extractedData.length} codes to ./data/int-standard/icd10-int.json`);
     console.log("--------------------------------");
 }
+
+if (import.meta.main) {
+    await defaultMain();
+}
