@@ -178,7 +178,7 @@ function createParent(rootCode: string): FinalizeData | null {
 }
 
 async function groupPCSCodes() {
-    console.log("⚙️  Loading PCS Data...");
+    console.log("Loading PCS Data...");
     const rawData = await file("./data/us-standard/icd10pcs_2026.json").json();
     
     // Map: "001" -> FinalizeData Object
@@ -239,7 +239,7 @@ async function groupPCSCodes() {
         count++;
     }
 
-    console.log(`✅ Grouped ${count} codes into ${groupedData.size} categories.`);
+    console.log(`Grouped ${count} codes into ${groupedData.size} categories.`);
 
     // 3. Convert Maps to Arrays for JSON serialization
     const outputArray = Array.from(groupedData.values()).map(item => {
@@ -258,7 +258,7 @@ async function groupPCSCodes() {
     // 4. Sort by code
     outputArray.sort((a, b) => a.code.localeCompare(b.code));
 
-    console.log(`💾 Saving to ${OUTPUT_PATH}...`);
+    console.log(`Saving to ${OUTPUT_PATH}...`);
     await write(OUTPUT_PATH, JSON.stringify(outputArray, null, 2));
     console.log("Done.");
 }
