@@ -56,3 +56,21 @@ bun run services/int-standard/icd10-int.ts
 
 Processed data is saved to the `data/` or root directory as JSON files (e.g., `icd10cm_2026.json`, `icd10-int.json`).
 
+## Performance & Algorithms
+
+The search engine uses advanced in-memory indexing (Inverted Indexes, Token Maps) to achieve sub-millisecond search times (>800k ops/sec).
+
+👉 **[Read the Search Algorithm Documentation](SEARCH_ALGORITHM.md)** for a deep dive into the optimization strategy.
+
+## Testing & Benchmarks
+
+Run the test suite:
+```bash
+bun test
+```
+
+Run performance benchmarks:
+```bash
+bun run benchmark
+```
+
