@@ -1,87 +1,123 @@
 import { apiUrl, credentials } from "../../db/keys";
 import Bun from "bun";
 
-// getting access token
-const response = await fetch(apiUrl, {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: new URLSearchParams({
-        grant_type: "client_credentials",
-        client_id: credentials.apiKey,
-        client_secret: credentials.apiSecret,
-        scope: "icdapi_access",
-    }),
-});
 
-// Check if token request was successful
-if (!response.ok) {
-    console.error("Token request failed:", response.status, response.statusText);
-    const errorText = await response.text();
-    console.error("Error:", errorText);
-    //process.exit(1);
-}
+const START_URL = "https://id.who.int/icd/release/10/2019";
+const CONCURRENCY_LIMIT = 5000; 
+const OUT_FILE = "./data/int-standard/icd10-int.json";
 
-const data = await response.json();
-const accessToken = (data as { access_token: string })?.access_token;
 
-async function main(url: string) {
-    const response = await fetch(url, {
-        headers: {
-            "Authorization": `Bearer ${accessToken}`,
-            "Accept": "application/json",
-            "API-Version": "v2",
-            "Accept-Language": "en"
-        },
+async function getAccessToken() {
+    console.log("🔑 Authenticating...");
+    const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+            grant_type: "client_credentials",
+            client_id: credentials.apiKey,
+            client_secret: credentials.apiSecret,
+            scope: "icdapi_access",
+        }),
     });
-    if (!response.ok) {
-        console.error("Test data request failed:", response.status, response.statusText);
-        const errorText = await response.text();
-        console.error("Error:", errorText);
-    }
 
-   const data = await response.json() as any;
-
-   if (data.child) {
-    const childUrls = data.child.map(child => child.replace("http://", "https://"));
-    //console.log("Executing child URLs:", (childUrls || []).join(", "));
-    const childData = await Promise.all(childUrls.map(childUrl => main(childUrl)));
-    return childData;
-   }
-   
-   return data;
-}
-
-function extractData(items: any[]): any[] {
-    let result: any[] = [];
-
-    function traverse(item: any) {
-        if (Array.isArray(item)) {
-            item.forEach(traverse);
-        } else if (item && typeof item === 'object') {
-            if (item.code && item.title && item.title["@value"]) {
-                result.push({
-                    code: item.code,
-                    title: item.title["@value"]
-                });
-            }
-        }
-    }
-
-    traverse(items);
-    return result;
+    if (!response.ok) throw new Error(`Token failed: ${response.status}`);
+    const data = await response.json();
+    return (data as { access_token: string })?.access_token;
 }
 
 export default async function defaultMain() {
-    const finalData = await main("https://id.who.int/icd/release/10/2019");
-    console.log("Final data fetched");
+    const token = await getAccessToken();
+    const results: any[] = [];
+    
+    let active = 0;
+    const queue: (() => Promise<void>)[] = [];
 
-    console.log("Extracting data...");
-    const extractedData = extractData(finalData);
-    Bun.write("./data/int-standard/icd10-int.json", JSON.stringify(extractedData, null, 2));
-    console.log(`- Saved ${extractedData.length} codes to ./data/int-standard/icd10-int.json`);
-    console.log("--------------------------------");
+    const run = async (fn: () => Promise<void>) => {
+        if (active < CONCURRENCY_LIMIT) {
+            active++;
+            fn().finally(() => {
+                active--;
+                if (queue.length > 0) {
+                    const next = queue.shift();
+                    if (next) run(next);
+                }
+            });
+        } else {
+            queue.push(fn);
+        }
+    };
+
+    async function fetchNode(url: string, retryCount = 0) {
+        try {
+            const res = await fetch(url, {
+                headers: {
+                    "Authorization": `Bearer ${token}`,
+                    "Accept": "application/json",
+                    "API-Version": "v2",
+                    "Accept-Language": "en"
+                }
+            });
+
+            // HANDLE RATE LIMITING (429) & ERRORS
+            if (res.status === 429) {
+                // Back off if we are hitting them too hard
+                console.warn(`\n⚠️ Hit Rate Limit. Waiting 5s... (Active: ${active})`);
+                await Bun.sleep(5000); 
+                return run(() => fetchNode(url, retryCount + 1)); // Retry
+            }
+
+            if (!res.ok) {
+                console.error(`\n❌ Failed: ${url} (${res.status})`);
+                return;
+            }
+
+            const data = await res.json() as any;
+
+            if (data.code && data.title && data.title["@value"]) {
+                results.push({
+                    code: data.code,
+                    title: data.title["@value"]
+                });
+                
+                if (results.length % 500 === 0) {
+                    process.stdout.write(`\r🚀 Collected: ${results.length} codes...`);
+                }
+            }
+
+            if (data.child && Array.isArray(data.child)) {
+                for (const childUrl of data.child) {
+                    const secureUrl = childUrl.replace("http://", "https://");
+                    run(() => fetchNode(secureUrl));
+                }
+            }
+
+        } catch (e) {
+            console.error(`Error: ${url}`, e);
+        }
+    }
+
+    console.log("🌍 Starting High-Speed Crawler...");
+    const start = performance.now();
+
+    await new Promise<void>((resolve) => {
+        run(() => fetchNode(START_URL));
+        
+        const checkDone = setInterval(() => {
+            if (active === 0 && queue.length === 0) {
+                clearInterval(checkDone);
+                resolve();
+            }
+        }, 100);
+    });
+
+    const end = performance.now();
+    console.log(`\n\n✅ Done in ${((end - start) / 1000).toFixed(2)}s`);
+
+    results.sort((a, b) => a.code.localeCompare(b.code));
+
+    console.log("💾 Saving data...");
+    await Bun.write(OUT_FILE, JSON.stringify(results, null, 2));
+    console.log(`- Saved ${results.length} codes to ${OUT_FILE}`);
 }
 
 if (import.meta.main) {
