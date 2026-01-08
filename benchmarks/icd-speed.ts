@@ -24,7 +24,7 @@ function benchmark(name: string, fn: () => void, runs = 1000) {
     console.log("------------------------------------------------");
 }
 
-const benchmark_num = 10;
+const benchmark_num = 1000;
 
 console.log("\nStarting Benchmarks...\n");
 
