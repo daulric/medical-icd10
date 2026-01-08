@@ -1,4 +1,8 @@
 {
+  "scripts": {
+    "test": "bun test",
+    "benchmark": "bun run benchmarks/icd-speed.ts"
+  },
   "dependencies": {
     "adm-zip": "^0.5.16",
     "jsdom": "^27.4.0"
