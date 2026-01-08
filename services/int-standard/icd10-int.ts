@@ -9,16 +9,16 @@ const OUT_FILE = "./data/int-standard/icd10-int.json";
 
 async function getAccessToken() {
     console.log("🔑 Authenticating...");
-    const response = await fetch(apiUrl, {
-        method: "POST",
+const response = await fetch(apiUrl, {
+    method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: new URLSearchParams({
-            grant_type: "client_credentials",
-            client_id: credentials.apiKey,
-            client_secret: credentials.apiSecret,
-            scope: "icdapi_access",
-        }),
-    });
+    body: new URLSearchParams({
+        grant_type: "client_credentials",
+        client_id: credentials.apiKey,
+        client_secret: credentials.apiSecret,
+        scope: "icdapi_access",
+    }),
+});
 
     if (!response.ok) throw new Error(`Token failed: ${response.status}`);
     const data = await response.json();
@@ -50,11 +50,11 @@ export default async function defaultMain() {
     async function fetchNode(url: string, retryCount = 0) {
         try {
             const res = await fetch(url, {
-                headers: {
+        headers: {
                     "Authorization": `Bearer ${token}`,
-                    "Accept": "application/json",
-                    "API-Version": "v2",
-                    "Accept-Language": "en"
+            "Accept": "application/json",
+            "API-Version": "v2",
+            "Accept-Language": "en"
                 }
             });
 
@@ -69,7 +69,7 @@ export default async function defaultMain() {
             if (!res.ok) {
                 console.error(`\n❌ Failed: ${url} (${res.status})`);
                 return;
-            }
+    }
 
             const data = await res.json() as any;
 
@@ -88,7 +88,7 @@ export default async function defaultMain() {
                 for (const childUrl of data.child) {
                     const secureUrl = childUrl.replace("http://", "https://");
                     run(() => fetchNode(secureUrl));
-                }
+}
             }
 
         } catch (e) {
