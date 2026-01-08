@@ -82,11 +82,14 @@ export const icd10PcsSection2: ICD10PCSSection = {
   // --- Anatomical Regions ---
   'W': 'Anatomical Regions, General',
   'X': 'Anatomical Regions, Upper Extremities',
-  'Y': 'Anatomical Regions, Lower Extremities'
+  'Y': 'Anatomical Regions, Lower Extremities',
 
+  'Z': 'No Qualifier'
 };
 
 export const icd10PcsSection3: ICD10PCSSection = {
+    'A': 'Assistance',
+    "E": "Restoration",
     // --- Group 1: Taking out some/all of a body part ---
   'B': 'Excision',    // Portion of a body part
   'T': 'Resection',   // All of a body part
@@ -130,7 +133,9 @@ export const icd10PcsSection3: ICD10PCSSection = {
   'J': 'Inspection',
   'K': 'Map',
   'Q': 'Repair',      // Restoring to normal structure
-  '3': 'Control'      // Stopping post-procedural bleeding
+  '3': 'Control',      // Stopping post-procedural bleeding
+
+  'Z': 'No Qualifier'
 }
 
 export type FinalizeData = {
@@ -151,3 +156,41 @@ export type FinalizeData = {
 
 // if the length of the initial string is 3, then its the starting code
 // if the length of the initial string is more than 3, then its the specification code
+
+import { file, write } from "bun";
+
+function getSectionCode( code: string) {
+    if (code.length < 3) return null; // PCS codes are always 7 chars, but root is first 3
+    const split_code = code.split("");
+    
+    // We only care about the first 3 chars for the sections defined above
+    return [icd10PcsSection1[split_code[0]], icd10PcsSection2[split_code[1]], icd10PcsSection3[split_code[2]]];
+}
+
+async function main() {
+    const data = await file("./data/us-standard/icd10pcs_2026.json").json();
+
+    // No need for async/await inside map since getSectionCode is synchronous
+    let top_level_codes = data.map((i: any) => {
+        const result = getSectionCode(i.code);
+        if (!result) return null; // Handle codes that don't match (though all PCS should match)
+        
+        const [ section1, section2, section3 ] = result;
+        console.log(section1, section2, section3, i.code); // Comment out for speed
+        return {
+            code: i.code,
+            section: section1,
+            bodySystem: section2,
+            operation: section3
+        };
+    }).filter((x: any) => x !== null);
+
+    // to to a csv
+    const csv = top_level_codes.map((i: any) => `${i.code},${i.section},${i.bodySystem},${i.operation}`).join("\n");
+    await write("./data/us-standard/grouping/pcs-grouping.csv", csv);
+
+    console.log(`Processed ${top_level_codes.length} codes.`);
+    // console.log(JSON.stringify(top_level_codes.slice(0, 5), null, 2));
+}
+
+await main();
