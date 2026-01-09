@@ -148,7 +148,7 @@ export type FinalizeData = {
     code: string;
     category: typeof icd10PcsSection1[string];
     sub_category: typeof icd10PcsSection2[string];
-    group: typeof icd10PcsSection3[string];
+    group_code: typeof icd10PcsSection3[string];
     description: string;
     long_description: string;
     has_specification_codes: boolean;
@@ -168,7 +168,7 @@ function createParent(rootCode: string): FinalizeData | null {
         code: rootCode,
         category: icd10PcsSection1[rootCode[0]] || "Unknown",
         sub_category: icd10PcsSection2[rootCode[1]] || "Unknown",
-        group: icd10PcsSection3[rootCode[2]] || "Unknown",
+        group_code: icd10PcsSection3[rootCode[2]] || "Unknown",
         description: "", // Will be filled if there's a specific description for the header, otherwise usually generated
         long_description: "", 
         has_specification_codes: false,
@@ -199,7 +199,7 @@ async function groupPCSCodes() {
                 // Determine description for the parent
                 // Often the 3-digit header has a description in the raw data if isHeader=true
                 // But if not, we construct it from the sections
-                const generatedDesc = `${parent.category} - ${parent.sub_category} - ${parent.group}`;
+                const generatedDesc = `${parent.category} - ${parent.sub_category} - ${parent.group_code}`;
                 
                 parent.description = generatedDesc;
                 
