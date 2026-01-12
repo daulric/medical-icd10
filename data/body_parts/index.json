@@ -1,144 +1,144 @@
 [
-    {
-      "description": "Multiple Head Locations",
-      "code": 10,
-      "body_parts": [
-        "Head"
-      ]
-    },
-    {
-      "description": "Skull",
-      "code": 11,
-      "body_parts": [
-        "Scalp",
-        "Forehead",
-        "Temple"
-      ]
-    },
-    {
-      "description": "Ear(s)",
-      "code": 13,
-      "body_parts": [
-        "Right Ear",
-        "Left Ear"
-      ]
-    },
-    {
-      "description": "Eye(s)",
-      "code": 14,
-      "body_parts": [
-        "Right Eye",
-        "Left Eye"
-      ]
-    },
-    {
-      "description": "Nose",
-      "code": 15,
-      "body_parts": [
-        "Nose"
-      ]
-    },
-    {
-      "description": "Mouth",
-      "code": 17,
-      "body_parts": [
-        "Mouth"
-      ]
-    },
-    {
-      "description": "Face (N.O.C.)",
-      "code": 19,
-      "body_parts": [
-        "Face",
-        "Right Cheek",
-        "Left Cheek",
-        "Chin",
-        "Jaw"
-      ]
-    },
-    {
-      "description": "Neck",
-      "code": 20,
-      "body_parts": [
-        "Neck",
-        "Throat"
-      ]
-    },
-    {
-      "description": "Multiple Upper Extremities",
-      "code": 30,
-      "body_parts": [
-        "Right Arm",
-        "Left Arm"
-      ]
-    },
-    {
-      "description": "Hand",
-      "code": 35,
-      "body_parts": [
-        "Right Hand",
-        "Left Hand"
-      ]
-    },
-    {
-      "description": "Shoulder",
-      "code": 38,
-      "body_parts": [
-        "Left Shoulder",
-        "Right Axilla",
-        "Left Axilla",
-        "Axilla"
-      ]
-    },
-    {
-      "description": "Multiple Trunk Locations",
-      "code": 40,
-      "body_parts": [
-        "Back",
-        "Abdomen",
-        "Upper Abdomen",
-        "Lower Abdomen",
-        "Flank"
-      ]
-    },
-    {
-      "description": "Lower Back Area",
-      "code": 42,
-      "body_parts": [
-        "Right Buttock",
-        "Left Buttock",
-        "Buttocks"
-      ]
-    },
-    {
-      "description": "Chest",
-      "code": 44,
-      "body_parts": [
-        "Chest"
-      ]
-    },
-    {
-      "description": "Multiple Lower Extremities",
-      "code": 50,
-      "body_parts": [
-        "Right Leg",
-        "Left Leg"
-      ]
-    },
-    {
-      "description": "Hip / Pelvis",
-      "code": 51,
-      "body_parts": [
-        "Pelvis",
-        "Groin"
-      ]
-    },
-    {
-      "description": "Foot",
-      "code": 56,
-      "body_parts": [
-        "Right Foot",
-        "Left Foot"
-      ]
-    }
-  ]
+  {
+    "description": "Multiple Head Locations",
+    "code": 10,
+    "body_parts": [
+      "Head"
+    ]
+  },
+  {
+    "description": "Skull",
+    "code": 11,
+    "body_parts": [
+      "Scalp",
+      "Forehead",
+      "Temple"
+    ]
+  },
+  {
+    "description": "Ear(s)",
+    "code": 13,
+    "body_parts": [
+      "Right Ear",
+      "Left Ear"
+    ]
+  },
+  {
+    "description": "Eye(s)",
+    "code": 14,
+    "body_parts": [
+      "Right Eye",
+      "Left Eye"
+    ]
+  },
+  {
+    "description": "Nose",
+    "code": 15,
+    "body_parts": [
+      "Nose"
+    ]
+  },
+  {
+    "description": "Mouth",
+    "code": 17,
+    "body_parts": [
+      "Mouth"
+    ]
+  },
+  {
+    "description": "Face (N.O.C.)",
+    "code": 19,
+    "body_parts": [
+      "Face",
+      "Right Cheek",
+      "Left Cheek",
+      "Chin",
+      "Jaw"
+    ]
+  },
+  {
+    "description": "Neck",
+    "code": 20,
+    "body_parts": [
+      "Neck",
+      "Throat"
+    ]
+  },
+  {
+    "description": "Multiple Upper Extremities",
+    "code": 30,
+    "body_parts": [
+      "Right Arm",
+      "Left Arm"
+    ]
+  },
+  {
+    "description": "Hand",
+    "code": 35,
+    "body_parts": [
+      "Right Hand",
+      "Left Hand"
+    ]
+  },
+  {
+    "description": "Shoulder",
+    "code": 38,
+    "body_parts": [
+      "Left Shoulder",
+      "Right Axilla",
+      "Left Axilla",
+      "Axilla"
+    ]
+  },
+  {
+    "description": "Multiple Trunk Locations",
+    "code": 40,
+    "body_parts": [
+      "Back",
+      "Abdomen",
+      "Upper Abdomen",
+      "Lower Abdomen",
+      "Flank"
+    ]
+  },
+  {
+    "description": "Lower Back Area",
+    "code": 42,
+    "body_parts": [
+      "Right Buttock",
+      "Left Buttock",
+      "Buttocks"
+    ]
+  },
+  {
+    "description": "Chest",
+    "code": 44,
+    "body_parts": [
+      "Chest"
+    ]
+  },
+  {
+    "description": "Multiple Lower Extremities",
+    "code": 50,
+    "body_parts": [
+      "Right Leg",
+      "Left Leg"
+    ]
+  },
+  {
+    "description": "Hip / Pelvis",
+    "code": 51,
+    "body_parts": [
+      "Pelvis",
+      "Groin"
+    ]
+  },
+  {
+    "description": "Foot",
+    "code": 56,
+    "body_parts": [
+      "Right Foot",
+      "Left Foot"
+    ]
+  }
+]
