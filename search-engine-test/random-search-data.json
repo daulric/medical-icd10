@@ -1,0 +1,122 @@
+[
+  {
+    "id": "101",
+    "title": "Introduction to TypeScript",
+    "description": "Learn the basics of TypeScript, a superset of JavaScript that adds static types.",
+    "category": "Programming"
+  },
+  {
+    "id": "102",
+    "title": "Advanced React Patterns",
+    "description": "Deep dive into higher-order components, render props, and hooks for building scalable UIs.",
+    "category": "Frontend"
+  },
+  {
+    "id": "103",
+    "title": "Database Design Fundamentals",
+    "description": "Understanding normalization, indexes, and schema design for relational databases like PostgreSQL.",
+    "category": "Database"
+  },
+  {
+    "id": "104",
+    "title": "Cloud Computing with AWS",
+    "description": "Deploying scalable applications using EC2, S3, and Lambda functions on Amazon Web Services.",
+    "category": "DevOps"
+  },
+  {
+    "id": "105",
+    "title": "Machine Learning Basics",
+    "description": "An overview of supervised and unsupervised learning algorithms using Python and Scikit-learn.",
+    "category": "AI/ML"
+  },
+  {
+    "id": "106",
+    "title": "Healthy Eating Habits",
+    "description": "Tips for maintaining a balanced diet with proper nutrition and meal planning.",
+    "category": "Health"
+  },
+  {
+    "id": "107",
+    "title": "Effective Time Management",
+    "description": "Strategies to boost productivity, prioritize tasks, and manage your time effectively.",
+    "category": "Productivity"
+  },
+  {
+    "id": "108",
+    "title": "The Art of Photography",
+    "description": "Mastering composition, lighting, and exposure to capture stunning photos.",
+    "category": "Art"
+  },
+  {
+    "id": "109",
+    "title": "History of Ancient Rome",
+    "description": "Exploring the rise and fall of the Roman Empire and its impact on modern civilization.",
+    "category": "History"
+  },
+  {
+    "id": "110",
+    "title": "Gardening for Beginners",
+    "description": "How to grow your own vegetables, herbs, and flowers in a backyard garden.",
+    "category": "Lifestyle"
+  },
+  {
+    "id": "111",
+    "title": "TypeScript vs JavaScript",
+    "description": "Comparing the two languages to understand when to use static typing in your projects.",
+    "category": "Programming"
+  },
+  {
+    "id": "112",
+    "title": "React State Management",
+    "description": "Managing complex state in React applications using Redux, Context API, or MobX.",
+    "category": "Frontend"
+  },
+  {
+    "id": "113",
+    "title": "NoSQL Databases Explained",
+    "description": "When to use document stores like MongoDB versus traditional SQL databases.",
+    "category": "Database"
+  },
+  {
+    "id": "114",
+    "title": "Docker and Kubernetes",
+    "description": "Containerizing applications with Docker and orchestrating them with Kubernetes.",
+    "category": "DevOps"
+  },
+  {
+    "id": "115",
+    "title": "Neural Networks Deep Dive",
+    "description": "Understanding the architecture of artificial neural networks and deep learning models.",
+    "category": "AI/ML"
+  },
+  {
+    "id": "116",
+    "title": "Yoga for Relaxation",
+    "description": "Simple yoga poses and breathing exercises to reduce stress and improve flexibility.",
+    "category": "Health"
+  },
+  {
+    "id": "117",
+    "title": "Minimalist Living",
+    "description": "Decluttering your life and focusing on what truly matters for a happier lifestyle.",
+    "category": "Lifestyle"
+  },
+  {
+    "id": "118",
+    "title": "Modern Art Movements",
+    "description": "A journey through Impressionism, Cubism, Surrealism, and Abstract Expressionism.",
+    "category": "Art"
+  },
+  {
+    "id": "119",
+    "title": "World War II Overview",
+    "description": "Key events, battles, and political shifts during the Second World War.",
+    "category": "History"
+  },
+  {
+    "id": "120",
+    "title": "Financial Planning 101",
+    "description": "Basics of budgeting, saving, and investing for a secure financial future.",
+    "category": "Finance"
+  }
+]
