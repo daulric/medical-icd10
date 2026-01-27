@@ -159,6 +159,21 @@ export type FinalizeData = {
     }>;
 }
 
+export type FinalizeData2 = {
+    icd10_code: string;
+    category: string;
+    sub_category: string;
+    group_code: string;
+    short_display_name: string;
+    description: string;
+    has_specification_codes: boolean;
+    specification_codes?: Map<string, {
+        code: string;
+        description: string;
+        long_description: string;
+    }>;
+}
+
 
 // Helper: Create the parent container for a 3-digit code
 function createParent(rootCode: string): FinalizeData | null {
